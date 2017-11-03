@@ -1,0 +1,35 @@
+{
+  "name": "Start_firefox_plugin",
+  "version": "1.0.0",
+  "description": "Template to build plugins for Firefox",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack; web-ext build --source-dir ./dst",
+    "watch": "webpack --watch& web-ext run --source-dir ./dst",
+    "postwatch": "kill $(ps aux | grep webpack | grep -v grep | awk '{print $2}' )",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "babel": {
+    "presets": [
+      "env"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ghooost/start.webext.plugin.git"
+  },
+  "author": "ghooost@gmail.com",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "copy-webpack-plugin": "^4.2.0",
+    "uglify-js": "^3.1.6",
+    "webpack": "^3.8.1"
+  },
+  "dependencies": {
+    "babel-polyfill": "^6.26.0"
+  }
+}
