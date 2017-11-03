@@ -4,7 +4,7 @@
   "description": "Template to build plugins for Firefox",
   "main": "index.js",
   "scripts": {
-    "build": "webpack; web-ext build --source-dir ./dst",
+    "build": "webpack --config webpack.build.js; web-ext build --source-dir ./dst  --overwrite-dest",
     "watch": "webpack --watch& web-ext run --source-dir ./dst",
     "postwatch": "kill $(ps aux | grep webpack | grep -v grep | awk '{print $2}' )",
     "test": "echo \"Error: no test specified\" && exit 1"

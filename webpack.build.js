@@ -21,6 +21,14 @@ module.exports = {
     new CopyWebpackPlugin([
       { from: './src/manifest.json', to: 'manifest.json' },
       { from: './src/icons', to: 'icons' }
-    ])
+    ]),
+    new webpack.optimize.UglifyJsPlugin({
+        compress: {
+            warnings: false,
+        },
+        output: {
+            comments: false,
+        },
+    }),
   ]
 };

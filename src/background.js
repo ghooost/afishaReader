@@ -1,7 +1,4 @@
-class PluginBg {
-  constructor(){
-    console.log("Started background 1.0!");
-  }
-}
-
-const bg=new PluginBg();
+import Background from './classes/Background';
+const bg=new Background({
+  verbose:true
+});

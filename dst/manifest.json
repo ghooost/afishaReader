@@ -5,6 +5,13 @@
 
   "description": "Start point for plugins",
 
+  "applications": {
+    "gecko": {
+      "id": "ghooost@gmail.com-start-plugin",
+      "strict_min_version": "49.0"
+    }
+  },
+
   "icons": {
     "48": "icons/48.png",
     "96": "icons/96.png"
@@ -20,6 +27,12 @@
       "cookies",
       "<all_urls>"
   ],
+
+  "browser_action": {
+    "default_icon": "icons/32.png",
+    "default_title": "Start.webExtension"
+  },
+
 
   "background": {
     "scripts": ["background.js"]
