@@ -25,12 +25,13 @@
       "tabs",
       "notifications",
       "cookies",
+      "http://localhost/*",
       "<all_urls>"
   ],
 
   "browser_action": {
     "default_icon": "icons/32.png",
-    "default_title": "Start.webExtension"
+    "default_title": "Start webExtension"
   },
 
 

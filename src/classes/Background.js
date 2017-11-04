@@ -12,13 +12,13 @@ export default class Background {
       console.log("Started background");
     };
     if(this.options.browserAction){
-      browser.browserAction.onClicked.addListener(()=>this.onBrowserAction.bind(this));
+      browser.browserAction.onClicked.addListener((tab)=>this.onBrowserAction.bind(this,tab)(tab));
     };
     if(this.options.receivePluginMessages){
-      browser.runtime.onMessage.addListener((request, sender, sendResponse) => this.onPluginMessage.bind(this,request,sender,sendResponse))
+      browser.runtime.onMessage.addListener((request, sender, sendResponse) => this.onPluginMessage.bind(this,request,sender,sendResponse)(request, sender, sendResponse))
     };
     if(this.options.receiveNotesClick){
-      browser.notifications.onClicked.addListener(noteId => this.onNoteClick.bind(this,noteId));
+      browser.notifications.onClicked.addListener(noteId => this.onNoteClick.bind(this,noteId)(noteId));
     };
   }
   onBrowserAction(tab){

@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     'background.js':'./src/background.js'
   },
+  devtool: 'source-map',
   output: {
     filename: '[name]',
     path: path.resolve(__dirname, 'dst')
