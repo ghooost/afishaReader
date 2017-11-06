@@ -11,6 +11,9 @@ module.exports = {
     filename: '[name]',
     path: path.resolve(__dirname, 'dst')
   },
+  watchOptions: {
+    ignored: "/php/*"
+  },
   module: {
          loaders: [{
              test: /\.js$/,
