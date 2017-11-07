@@ -6,18 +6,17 @@ export default class Background {
         verbose:false,
         receiveNotesClick:false
     };
-    this.states={};
-    this.options=Object.assign({},defOptions,options);
-    if(this.options.verbose){
+    this.state=Object.assign({},{options:Object.assign({},defOptions,options)});
+    if(this.state.options.verbose){
       console.log("Started background");
     };
-    if(this.options.browserAction){
+    if(this.state.options.browserAction){
       browser.browserAction.onClicked.addListener((tab)=>this.onBrowserAction.bind(this,tab)(tab));
     };
-    if(this.options.receivePluginMessages){
+    if(this.state.options.receivePluginMessages){
       browser.runtime.onMessage.addListener((request, sender, sendResponse) => this.onPluginMessage.bind(this,request,sender,sendResponse)(request, sender, sendResponse))
     };
-    if(this.options.receiveNotesClick){
+    if(this.state.options.receiveNotesClick){
       browser.notifications.onClicked.addListener(noteId => this.onNoteClick.bind(this,noteId)(noteId));
     };
   }

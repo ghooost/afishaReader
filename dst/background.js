@@ -82,10 +82,6 @@ var _AfishaBackground = __webpack_require__(3);
 
 var _AfishaBackground2 = _interopRequireDefault(_AfishaBackground);
 
-var _constants = __webpack_require__(5);
-
-var _constants2 = _interopRequireDefault(_constants);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var bg = new _AfishaBackground2.default({
@@ -123,9 +119,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Background2 = __webpack_require__(4);
+var _ExtBackground2 = __webpack_require__(6);
 
-var _Background3 = _interopRequireDefault(_Background2);
+var _ExtBackground3 = _interopRequireDefault(_ExtBackground2);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -135,8 +131,8 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-var AfishaBackground = function (_Background) {
-  _inherits(AfishaBackground, _Background);
+var AfishaBackground = function (_ExtBackground) {
+  _inherits(AfishaBackground, _ExtBackground);
 
   function AfishaBackground() {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
@@ -145,90 +141,20 @@ var AfishaBackground = function (_Background) {
 
     var _this = _possibleConstructorReturn(this, (AfishaBackground.__proto__ || Object.getPrototypeOf(AfishaBackground)).call(this, options));
 
-    _this.baseUrl = 'https://www.ticketland.ru';
-    _this.startUrl = _this.baseUrl + '/musical/';
+    _this.state.baseUrl = 'https://www.ticketland.ru';
+    _this.state.startUrl = _this.state.baseUrl + '/musical/';
     return _this;
   }
 
   _createClass(AfishaBackground, [{
-    key: 'extFetch',
-    value: function extFetch(url) {
-      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var output = arguments[2];
-      var errorMes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "There is extFetch error";
-
-      if (this.options.verbose) {
-        console.log("extFetch: ", url);
-      };
-      return fetch(url, options).then(function (response) {
-        if (response.ok) {
-          switch (output.toLowerCase()) {
-            case 'dom':
-              return response.text().then(function (text) {
-                var parser = new DOMParser();
-                return parser.parseFromString(text, "text/html");
-              });
-              break;
-            default:
-              return response[output]();
-          }
-        } else {
-          throw new Error(errorMes);
-        }
-      }).catch(function (err) {
-        console.log("extFetch error: ", err);
-        throw err;
-      });
-    }
-  }, {
-    key: 'pause',
-    value: function pause(delay) {
-      var ret = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
-      var message = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'Pause :' + delay;
-
-      if (this.options.verbose) {
-        console.log(message);
-      };
-      return new Promise(function (resolve, reject) {
-        setTimeout(function () {
-          resolve(ret);
-        }, delay);
-      });
-    }
-    // onBrowserActionSingle(tab){
-    //   let str=`{"url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/","name":"Мюзикл «Привидение»","shows":[{"date":"2017-11-04T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171104_180001-1937922","price":"2 400 — 4 080 руб."},{"date":"2017-11-05T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171105_130001-1937922","price":"2 400 — 4 080 руб."},{"date":"2017-11-05T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171105_180001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-11-06T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171106_130001-1937922","price":"1 700 — 3 800 руб."},{"date":"2017-11-06T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171106_180001-1937922","price":"1 700 — 3 800 руб."},{"date":"2017-11-08T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171108_190001-1937922","price":"2 400 — 4 080 руб."},{"date":"2017-11-11T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171111_130001-1937922","price":"1 700 — 3 800 руб."},{"date":"2017-11-11T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171111_180001-1937922","price":"2 000 — 5 500 руб."},{"date":"2017-11-12T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171112_130001-1937922","price":"1 700 — 3 800 руб."},{"date":"2017-11-12T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171112_180001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-11-14T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171114_190001-1937922","price":"1 400 — 4 500 руб."},{"date":"2017-11-15T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171115_190001-1937922","price":"1 400 — 4 500 руб."},{"date":"2017-11-16T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171116_190001-1937922","price":"1 400 — 4 500 руб."},{"date":"2017-11-17T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171117_190001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-11-18T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171118_130001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-11-18T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171118_180001-1937922","price":"2 000 — 4 100 руб."},{"date":"2017-11-19T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171119_130001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-11-19T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171119_180001-1937922","price":"1 700 — 3 800 руб."},{"date":"2017-11-21T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171121_190001-1937922","price":"1 400 — 3 500 руб."},{"date":"2017-11-22T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171122_190001-1937922","price":"1 400 — 4 500 руб."},{"date":"2017-11-23T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171123_190001-1937922","price":"1 400 — 4 500 руб."},{"date":"2017-11-25T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171125_130001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-11-25T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171125_180001-1937922","price":"2 000 — 5 500 руб."},{"date":"2017-11-26T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171126_130001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-11-26T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171126_180001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-11-29T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171129_190001-1937922","price":"1 400 — 4 500 руб."},{"date":"2017-11-30T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171130_190001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-12-02T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171202_130001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-12-02T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171202_180001-1937922","price":"2 000 — 5 500 руб."},{"date":"2017-12-03T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171203_130001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-12-03T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171203_180001-1937922","price":"1 700 — 5 000 руб."},{"date":"2017-12-05T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171205_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-06T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171206_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-08T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171208_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-09T11:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171209_140001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-09T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171209_190001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-12-10T11:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171210_140001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-10T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171210_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-11T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171211_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-13T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171213_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-14T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171214_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-17T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171217_130001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-17T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171217_180001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-19T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171219_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-23T11:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171223_140001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-23T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171223_190001-1937922","price":"2 400 — 4 920 руб."},{"date":"2017-12-29T16:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171229_190001-1937922","price":"2 200 — 6 050 руб."},{"date":"2017-12-30T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171230_130001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-12-30T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171230_180001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-12-31T10:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171231_130001-1937922","price":"2 400 — 6 600 руб."},{"date":"2017-12-31T15:00:01.000Z","url":"https://www.ticketland.ru/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/20171231_180001-1937922","price":"2 400 — 6 600 руб."}]}`;
-    //
-    //   let data=JSON.parse(str);
-    //   data.shows=data.shows.map(item=>Object.assign(item,{date:new Date(Date.parse(item.date))}));
-    //   data.calendar=this.compileCalendar(data.shows);
-    //   console.log(data);
-    // }
-    // onBrowserActionDate(tab){
-    //   let str='2017-12-31T18:00:01+03:00';
-    //   let d=new Date(Date.parse(str));
-    //   console.log(d,d.getHours());
-    // }
-    //   onBrowserActionMusical(tab){
-    // //NOTE:test
-    //
-    //     this.musicals={};
-    //     this.parseMusical(this.baseUrl+'/koncertnye-zaly/moskovskiy-dvorec-molodezhi/prividenie/')
-    //     .then(()=>{
-    //       console.log("DONE!");
-    //       console.log(JSON.stringify(this.musicals));
-    //       this.inProgress=false;
-    //     })
-    //   }
-
-  }, {
     key: 'onBrowserActionGen',
     value: function onBrowserActionGen(tab) {
       var _this2 = this;
 
       var buf = [];
-      this.options.locData.forEach(function (item) {
-        if (_this2.options.urls[item.url]) {
-          buf.push('"' + item.url + '":' + _this2.options.urls[item.url]);
+      this.state.options.locData.forEach(function (item) {
+        if (_this2.state.options.urls[item.url]) {
+          buf.push('"' + item.url + '":' + _this2.state.options.urls[item.url]);
         } else {
           buf.push('"' + item.url + '":""');
         };
@@ -241,11 +167,11 @@ var AfishaBackground = function (_Background) {
       var _this3 = this;
 
       var query = Promise.resolve();
-      this.options.locData.forEach(function (item) {
+      this.state.options.locData.forEach(function (item) {
         query = query.then(function () {
-          if (_this3.options.urls[item.url]) {
+          if (_this3.state.options.urls[item.url]) {
             var fd = new FormData();
-            fd.append('uid', _this3.options.urls[item.url]);
+            fd.append('uid', _this3.state.options.urls[item.url]);
             fd.append('agenda', item.calendar);
             return _this3.extFetch('http://musicals.ru/afisha.php', { method: 'POST', body: fd }, "text", "Can't store afisha").then(function (text) {
               console.log("Stored: ", item.name);
@@ -262,64 +188,67 @@ var AfishaBackground = function (_Background) {
   }, {
     key: 'onBrowserActionReal',
     value: function onBrowserActionReal(tab) {
-      var _this4 = this;
-
       //NOTE: load first page
-      if (!this.inProgress) {
-        this.musicals = {};
-        this.inProgress = true;
-        this.extFetch(this.startUrl, {}, "dom").then(function (dom) {
-          //NOTE:parse pages
-          var queue = Promise.resolve();
-          var list = dom.querySelectorAll(".paginator a[data-page]");
-
-          var _loop = function _loop(cnt, m) {
-            if (cnt == 0) {
-              queue = queue.then(function () {
-                return _this4.parsePage('', dom);
-              });
-            } else {
-              //continue;
-              queue = queue.then(function () {
-                return _this4.pause(1000);
-              }).then(function () {
-                return _this4.parsePage(_this4.baseUrl + list[cnt].attributes['href'].value, null);
-              });
-            }
-          };
-
-          for (var cnt = 0, m = list.length; cnt < m; cnt++) {
-            _loop(cnt, m);
-          };
-          queue = queue.then(function () {
-            if (_this4.options.verbose) {
-              console.log("Done!");
-              var fd = new FormData();
-              var dataToSend = [];
-              for (var o in _this4.musicals) {
-                var item = _this4.musicals[o];
-                dataToSend.push({
-                  url: item.url,
-                  name: item.name,
-                  calendar: item.calendar
-                });
-              }
-              fd.append('data', JSON.stringify(dataToSend));
-              return fetch("http://localhost/afishaReader/php/store.php", {
-                method: 'POST',
-                body: fd
-              });
-            };
-            //console.log(JSON.stringify(this.musicals));
-            _this4.inProgress = false;
-          });
-          return queue;
-        }).catch(function (err) {
-          console.log(err);
-        });
-      } else {
+      if (!this.inProgress) {} else {
         console.log("Plugin is busy!");
       }
+    }
+  }, {
+    key: 'grabSource',
+    value: function grabSource() {
+      var _this4 = this;
+
+      this.state.musicals = {};
+      this.inProgress = true;
+      this.extFetch(this.state.startUrl, {}, "dom").then(function (dom) {
+        //NOTE:parse pages
+        var queue = Promise.resolve();
+        var list = dom.querySelectorAll(".paginator a[data-page]");
+
+        var _loop = function _loop(cnt, m) {
+          if (cnt == 0) {
+            queue = queue.then(function () {
+              return _this4.parsePage('', dom);
+            });
+          } else {
+            //continue;
+            queue = queue.then(function () {
+              return _this4.pause(1000);
+            }).then(function () {
+              return _this4.parsePage(_this4.state.baseUrl + list[cnt].attributes['href'].value, null);
+            });
+          }
+        };
+
+        for (var cnt = 0, m = list.length; cnt < m; cnt++) {
+          _loop(cnt, m);
+        };
+        queue = queue.then(function () {
+          if (_this4.state.options.verbose) {
+            console.log("Done!");
+          };
+          //NOTE: we can save loaded calendar
+          // let fd=new FormData();
+          // let dataToSend=[];
+          // for(let o in this.state.musicals){
+          //   let item=this.state.musicals[o];
+          //   dataToSend.push({
+          //     url:item.url,
+          //     name:item.name,
+          //     calendar:item.calendar
+          //   });
+          // }
+          // fd.append('data',JSON.stringify(dataToSend));
+          // return extFetch("http://localhost/afishaReader/php/store.php",{
+          //   method:'POST',
+          //   body:fd
+          // });
+          _this4.inProgress = false;
+        });
+        return queue;
+      }).catch(function (err) {
+        console.log(err);
+      });
     }
   }, {
     key: 'parsePage',
@@ -327,7 +256,7 @@ var AfishaBackground = function (_Background) {
       var _this5 = this;
 
       if (!dom) {
-        if (this.options.verbose) {
+        if (this.state.options.verbose) {
           console.log("let's fetch url first", url);
         };
         return this.extFetch(url, {}, 'dom').then(function (dom) {
@@ -335,7 +264,7 @@ var AfishaBackground = function (_Background) {
         });
       } else {
         var _ret2 = function () {
-          if (_this5.options.verbose) {
+          if (_this5.state.options.verbose) {
             console.log("there is a dom, let's parse it!");
           };
           var list = dom.querySelectorAll('.show_room_search .search_item .showinf .showname a');
@@ -348,7 +277,7 @@ var AfishaBackground = function (_Background) {
               });
             };
             queue = queue.then(function () {
-              return _this5.parseMusical(_this5.baseUrl + list[cnt].attributes['href'].value);
+              return _this5.parseMusical(_this5.state.baseUrl + list[cnt].attributes['href'].value);
             });
           };
 
@@ -368,7 +297,7 @@ var AfishaBackground = function (_Background) {
     value: function parseMusical(url) {
       var _this6 = this;
 
-      if (this.options.verbose) {
+      if (this.state.options.verbose) {
         console.log("Let's parse musical", url);
       };
       var musical = {
@@ -384,15 +313,15 @@ var AfishaBackground = function (_Background) {
           var p = shows[cnt].querySelector('.price [itemprop=price]');
           musical.shows.push({
             date: d ? new Date(Date.parse(d.attributes['content'].value)) : '',
-            url: u ? _this6.baseUrl + u.attributes['href'].value : '',
+            url: u ? _this6.state.baseUrl + u.attributes['href'].value : '',
             price: p ? p.innerHTML : ''
           });
         }
         musical.calendar = _this6.compileCalendar(musical.shows);
-        if (_this6.options.verbose) {
+        if (_this6.state.options.verbose) {
           console.log(musical);
         }
-        _this6.musicals[url] = musical;
+        _this6.state.musicals[url] = musical;
       });
     }
     //NOTE: calendar compilation
@@ -460,7 +389,7 @@ var AfishaBackground = function (_Background) {
   }]);
 
   return AfishaBackground;
-}(_Background3.default);
+}(_ExtBackground3.default);
 
 exports.default = AfishaBackground;
 
@@ -493,22 +422,21 @@ var Background = function () {
       verbose: false,
       receiveNotesClick: false
     };
-    this.states = {};
-    this.options = Object.assign({}, defOptions, options);
-    if (this.options.verbose) {
+    this.state = Object.assign({}, { options: Object.assign({}, defOptions, options) });
+    if (this.state.options.verbose) {
       console.log("Started background");
     };
-    if (this.options.browserAction) {
+    if (this.state.options.browserAction) {
       browser.browserAction.onClicked.addListener(function (tab) {
         return _this.onBrowserAction.bind(_this, tab)(tab);
       });
     };
-    if (this.options.receivePluginMessages) {
+    if (this.state.options.receivePluginMessages) {
       browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
         return _this.onPluginMessage.bind(_this, request, sender, sendResponse)(request, sender, sendResponse);
       });
     };
-    if (this.options.receiveNotesClick) {
+    if (this.state.options.receiveNotesClick) {
       browser.notifications.onClicked.addListener(function (noteId) {
         return _this.onNoteClick.bind(_this, noteId)(noteId);
       });
@@ -538,7 +466,139 @@ var Background = function () {
 exports.default = Background;
 
 /***/ }),
-/* 5 */
+/* 5 */,
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _Background2 = __webpack_require__(4);
+
+var _Background3 = _interopRequireDefault(_Background2);
+
+var _constants = __webpack_require__(7);
+
+var _constants2 = _interopRequireDefault(_constants);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ExtBackground = function (_Background) {
+  _inherits(ExtBackground, _Background);
+
+  function ExtBackground() {
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, ExtBackground);
+
+    var _this = _possibleConstructorReturn(this, (ExtBackground.__proto__ || Object.getPrototypeOf(ExtBackground)).call(this, options));
+
+    _this.state.stage = _constants2.default.STARTING;
+    return _this;
+  }
+
+  _createClass(ExtBackground, [{
+    key: "extFetch",
+    value: function extFetch(url) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var output = arguments[2];
+      var errorMes = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : "There is extFetch error";
+
+      if (this.state.options.verbose) {
+        console.log("extFetch: ", url);
+      };
+      return fetch(url, options).then(function (response) {
+        if (response.ok) {
+          switch (output.toLowerCase()) {
+            case 'dom':
+              return response.text().then(function (text) {
+                var parser = new DOMParser();
+                return parser.parseFromString(text, "text/html");
+              });
+              break;
+            default:
+              return response[output]();
+          }
+        } else {
+          throw new Error(errorMes);
+        }
+      }).catch(function (err) {
+        console.log("extFetch error: ", err);
+        throw err;
+      });
+    }
+  }, {
+    key: "pause",
+    value: function pause(delay) {
+      var ret = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : '';
+      var message = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : "Pause :" + delay;
+
+      if (this.state.options.verbose) {
+        console.log(message);
+      };
+      return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+          resolve(ret);
+        }, delay);
+      });
+    }
+  }, {
+    key: "onPluginMessage",
+    value: function onPluginMessage(request, sender, sendResponse) {
+      if (request.action) {
+        doAction(request.action, request.data, sender);
+      }
+    }
+  }, {
+    key: "reAction",
+    value: function reAction(action) {
+      var _this2 = this;
+
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var delay = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 10;
+
+      return this.pause(delay).then(function () {
+        return _this2.doAction(action, data);
+      });
+    }
+  }, {
+    key: "doAction",
+    value: function doAction(action) {
+      var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+      var sender = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
+
+      //TODO: implement default switch
+      switch (action) {
+        default:
+          this.reDraw();
+      }
+    }
+  }, {
+    key: "reDraw",
+    value: function reDraw() {
+      //TODO: implement reDraw
+    }
+  }]);
+
+  return ExtBackground;
+}(_Background3.default);
+
+exports.default = ExtBackground;
+
+/***/ }),
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -548,8 +608,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = {
-  MODE_STARTING: "mode_starting",
-  MODE_WAIT: "mode_wait"
+  STARTING: "starting",
+  WAIT: "wait"
 };
 
 /***/ })
