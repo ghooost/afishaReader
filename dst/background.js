@@ -119,7 +119,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _ExtBackground2 = __webpack_require__(6);
+var _ExtBackground2 = __webpack_require__(4);
 
 var _ExtBackground3 = _interopRequireDefault(_ExtBackground2);
 
@@ -141,12 +141,28 @@ var AfishaBackground = function (_ExtBackground) {
 
     var _this = _possibleConstructorReturn(this, (AfishaBackground.__proto__ || Object.getPrototypeOf(AfishaBackground)).call(this, options));
 
+    _this.state.mode = 'Real';
     _this.state.baseUrl = 'https://www.ticketland.ru';
     _this.state.startUrl = _this.state.baseUrl + '/musical/';
     return _this;
   }
 
   _createClass(AfishaBackground, [{
+    key: 'onBrowserAction',
+    value: function onBrowserAction(tab) {
+      switch (this.state.mode) {
+        case 'Gen':
+          this.onBrowserActionGen(tab);
+          break;
+        case 'Post':
+          this.onBrowserActionPost(tab);
+          break;
+        case 'Real':
+          this.onBrowserActionReal(tab);
+          break;
+      }
+    }
+  }, {
     key: 'onBrowserActionGen',
     value: function onBrowserActionGen(tab) {
       var _this2 = this;
@@ -162,8 +178,8 @@ var AfishaBackground = function (_ExtBackground) {
       console.log(buf.join(",\n"));
     }
   }, {
-    key: 'onBrowserAction',
-    value: function onBrowserAction(tab) {
+    key: 'onBrowserActionPost',
+    value: function onBrowserActionPost(tab) {
       var _this3 = this;
 
       var query = Promise.resolve();
@@ -189,7 +205,9 @@ var AfishaBackground = function (_ExtBackground) {
     key: 'onBrowserActionReal',
     value: function onBrowserActionReal(tab) {
       //NOTE: load first page
-      if (!this.inProgress) {} else {
+      if (!this.inProgress) {
+        grabSource();
+      } else {
         console.log("Plugin is busy!");
       }
     }
@@ -228,21 +246,21 @@ var AfishaBackground = function (_ExtBackground) {
             console.log("Done!");
           };
           //NOTE: we can save loaded calendar
-          // let fd=new FormData();
-          // let dataToSend=[];
-          // for(let o in this.state.musicals){
-          //   let item=this.state.musicals[o];
-          //   dataToSend.push({
-          //     url:item.url,
-          //     name:item.name,
-          //     calendar:item.calendar
-          //   });
-          // }
-          // fd.append('data',JSON.stringify(dataToSend));
-          // return extFetch("http://localhost/afishaReader/php/store.php",{
-          //   method:'POST',
-          //   body:fd
-          // });
+          var fd = new FormData();
+          var dataToSend = [];
+          for (var o in _this4.state.musicals) {
+            var item = _this4.state.musicals[o];
+            dataToSend.push({
+              url: item.url,
+              name: item.name,
+              calendar: item.calendar
+            });
+          }
+          fd.append('data', JSON.stringify(dataToSend));
+          return extFetch("http://localhost/afishaReader/php/store.php", {
+            method: 'POST',
+            body: fd
+          });
           _this4.inProgress = false;
         });
         return queue;
@@ -406,84 +424,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Background = function () {
-  function Background() {
-    var _this = this;
-
-    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    _classCallCheck(this, Background);
-
-    var defOptions = {
-      receivePluginMessages: true,
-      browserAction: false,
-      verbose: false,
-      receiveNotesClick: false
-    };
-    this.state = Object.assign({}, { options: Object.assign({}, defOptions, options) });
-    if (this.state.options.verbose) {
-      console.log("Started background");
-    };
-    if (this.state.options.browserAction) {
-      browser.browserAction.onClicked.addListener(function (tab) {
-        return _this.onBrowserAction.bind(_this, tab)(tab);
-      });
-    };
-    if (this.state.options.receivePluginMessages) {
-      browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-        return _this.onPluginMessage.bind(_this, request, sender, sendResponse)(request, sender, sendResponse);
-      });
-    };
-    if (this.state.options.receiveNotesClick) {
-      browser.notifications.onClicked.addListener(function (noteId) {
-        return _this.onNoteClick.bind(_this, noteId)(noteId);
-      });
-    };
-  }
-
-  _createClass(Background, [{
-    key: "onBrowserAction",
-    value: function onBrowserAction(tab) {
-      //NOTE: click on bar button, tab - is an active tab data
-    }
-  }, {
-    key: "onPluginMessage",
-    value: function onPluginMessage(request, sender, sendResponse) {
-      //NOTE: receive a message from plugin script
-    }
-  }, {
-    key: "onNoteClick",
-    value: function onNoteClick(noteId) {
-      //NOTE: click on a note
-    }
-  }]);
-
-  return Background;
-}();
-
-exports.default = Background;
-
-/***/ }),
-/* 5 */,
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _Background2 = __webpack_require__(4);
+var _Background2 = __webpack_require__(5);
 
 var _Background3 = _interopRequireDefault(_Background2);
 
-var _constants = __webpack_require__(7);
+var _constants = __webpack_require__(6);
 
 var _constants2 = _interopRequireDefault(_constants);
 
@@ -598,7 +543,79 @@ var ExtBackground = function (_Background) {
 exports.default = ExtBackground;
 
 /***/ }),
-/* 7 */
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Background = function () {
+  function Background() {
+    var _this = this;
+
+    var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    _classCallCheck(this, Background);
+
+    var defOptions = {
+      receivePluginMessages: true,
+      browserAction: false,
+      verbose: false,
+      receiveNotesClick: false
+    };
+    this.state = Object.assign({}, { options: Object.assign({}, defOptions, options) });
+    if (this.state.options.verbose) {
+      console.log("Started background");
+    };
+    if (this.state.options.browserAction) {
+      browser.browserAction.onClicked.addListener(function (tab) {
+        return _this.onBrowserAction.bind(_this, tab)(tab);
+      });
+    };
+    if (this.state.options.receivePluginMessages) {
+      browser.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+        return _this.onPluginMessage.bind(_this, request, sender, sendResponse)(request, sender, sendResponse);
+      });
+    };
+    if (this.state.options.receiveNotesClick) {
+      browser.notifications.onClicked.addListener(function (noteId) {
+        return _this.onNoteClick.bind(_this, noteId)(noteId);
+      });
+    };
+  }
+
+  _createClass(Background, [{
+    key: "onBrowserAction",
+    value: function onBrowserAction(tab) {
+      //NOTE: click on bar button, tab - is an active tab data
+    }
+  }, {
+    key: "onPluginMessage",
+    value: function onPluginMessage(request, sender, sendResponse) {
+      //NOTE: receive a message from plugin script
+    }
+  }, {
+    key: "onNoteClick",
+    value: function onNoteClick(noteId) {
+      //NOTE: click on a note
+    }
+  }]);
+
+  return Background;
+}();
+
+exports.default = Background;
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";

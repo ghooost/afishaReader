@@ -3,8 +3,22 @@ import ExtBackground from "./ExtBackground";
 export default class AfishaBackground extends ExtBackground{
   constructor(options={}){
     super(options);
+    this.state.mode='Real';
     this.state.baseUrl='https://www.ticketland.ru';
     this.state.startUrl=this.state.baseUrl+'/musical/';
+  }
+  onBrowserAction(tab){
+    switch(this.state.mode){
+      case 'Gen':
+        this.onBrowserActionGen(tab);
+      break;
+      case 'Post':
+        this.onBrowserActionPost(tab);
+      break;
+      case 'Real':
+        this.onBrowserActionReal(tab);
+      break;
+    }
   }
   onBrowserActionGen(tab){
     let buf=[];
@@ -17,7 +31,7 @@ export default class AfishaBackground extends ExtBackground{
     });
     console.log(buf.join(",\n"));
   }
-  onBrowserAction(tab){
+  onBrowserActionPost(tab){
     let query=Promise.resolve();
     this.state.options.locData.forEach(item=>{
       query=query
@@ -41,6 +55,7 @@ export default class AfishaBackground extends ExtBackground{
   onBrowserActionReal(tab){
 //NOTE: load first page
     if(!this.inProgress){
+      grabSource();
     } else {
       console.log("Plugin is busy!");
     }
@@ -70,21 +85,21 @@ export default class AfishaBackground extends ExtBackground{
             console.log("Done!");
           };
           //NOTE: we can save loaded calendar
-          // let fd=new FormData();
-          // let dataToSend=[];
-          // for(let o in this.state.musicals){
-          //   let item=this.state.musicals[o];
-          //   dataToSend.push({
-          //     url:item.url,
-          //     name:item.name,
-          //     calendar:item.calendar
-          //   });
-          // }
-          // fd.append('data',JSON.stringify(dataToSend));
-          // return extFetch("http://localhost/afishaReader/php/store.php",{
-          //   method:'POST',
-          //   body:fd
-          // });
+          let fd=new FormData();
+          let dataToSend=[];
+          for(let o in this.state.musicals){
+            let item=this.state.musicals[o];
+            dataToSend.push({
+              url:item.url,
+              name:item.name,
+              calendar:item.calendar
+            });
+          }
+          fd.append('data',JSON.stringify(dataToSend));
+          return extFetch("http://localhost/afishaReader/php/store.php",{
+            method:'POST',
+            body:fd
+          });
           this.inProgress=false;
         })
         return queue;
