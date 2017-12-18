@@ -3,7 +3,7 @@ import ExtBackground from "./ExtBackground";
 export default class AfishaBackground extends ExtBackground{
   constructor(options={}){
     super(options);
-    this.state.mode='Real';
+    this.state.mode='Post';
     this.state.baseUrl='https://www.ticketland.ru';
     this.state.startUrl=this.state.baseUrl+'/musical/';
   }
@@ -55,7 +55,7 @@ export default class AfishaBackground extends ExtBackground{
   onBrowserActionReal(tab){
 //NOTE: load first page
     if(!this.inProgress){
-      grabSource();
+      this.grabSource();
     } else {
       console.log("Plugin is busy!");
     }
@@ -64,6 +64,7 @@ export default class AfishaBackground extends ExtBackground{
   grabSource(){
     this.state.musicals={};
     this.inProgress=true;
+    console.log("Let's grab source",this.state.startUrl);
     this.extFetch(this.state.startUrl,{},"dom")
     .then(dom=>{
 //NOTE:parse pages
@@ -96,7 +97,8 @@ export default class AfishaBackground extends ExtBackground{
             });
           }
           fd.append('data',JSON.stringify(dataToSend));
-          return extFetch("http://localhost/afishaReader/php/store.php",{
+
+          return this.extFetch("http://localhost/afishaReader/php/store.php",{
             method:'POST',
             body:fd
           });
@@ -105,6 +107,7 @@ export default class AfishaBackground extends ExtBackground{
         return queue;
     })
     .catch(err=>{
+      this.inProgress=false;
       console.log(err);
     })
   }

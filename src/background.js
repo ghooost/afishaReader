@@ -3,7 +3,7 @@ import locData from '../php/data.json';
 import AfishaBackground from './classes/AfishaBackground';
 
 const bg=new AfishaBackground({
-  verbose:false,
+  verbose:true,
   browserAction:true,
   receivePluginMessages:false,
   urls:urls,

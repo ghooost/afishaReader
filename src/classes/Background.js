@@ -3,7 +3,7 @@ export default class Background {
     const defOptions={
         receivePluginMessages:true,
         browserAction:false,
-        verbose:false,
+        verbose:true,
         receiveNotesClick:false
     };
     this.state=Object.assign({},{options:Object.assign({},defOptions,options)});
